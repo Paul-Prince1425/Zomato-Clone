@@ -1,0 +1,54 @@
+import React, { Component } from "react";
+import "../Styles/Home.css";
+import QuickSearch from "./QuickSearch";
+import Wallpaper from "./Wallpaper";
+import axios from "axios";
+
+export class Home extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      locations: [],
+      mealtypes: [],
+    };
+  }
+  componentDidMount() {
+    axios({
+      method: "GET",
+      url: "http://localhost:2000/locations",
+      headers: { "Content-Type": "Application/json" },
+    })
+      .then((response) => {
+        this.setState({
+          locations: response.data.Locations,
+        });
+      })
+      .catch((err) => console.log(err));
+
+    axios({
+      method: "GET",
+      url: "http://localhost:2000/mealtypes",
+      headers: { "Content-Type": "Application/json" },
+    })
+      .then((response) => {
+        this.setState({
+          mealtypes: response.data.MealTypes,
+        });
+      })
+      .catch((err) => console.log(err));
+  }
+
+  render() {
+    const { locations, mealtypes } = this.state;
+    return (
+      <div>
+        <Wallpaper locations={locations} />
+        <br />
+        <QuickSearch mealtypes={mealtypes} />
+      </div>
+    );
+  }
+}
+
+export default Home;
