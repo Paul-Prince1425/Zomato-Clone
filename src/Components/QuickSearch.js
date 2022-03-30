@@ -12,7 +12,7 @@ export class QuickSearch extends Component {
 
           <div className="row">
             {this.props.mealtypes.map((item) => (
-              <QuickSearchItem mealtypesData={item} />
+              <QuickSearchItem mealtypesData={item} key={item._id} />
             ))}
           </div>
         </div>

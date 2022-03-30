@@ -14,6 +14,7 @@ export class Home extends Component {
     };
   }
   componentDidMount() {
+    sessionStorage.clear();
     axios({
       method: "GET",
       url: "http://localhost:2000/locations",
@@ -45,7 +46,7 @@ export class Home extends Component {
       <div>
         <Wallpaper locations={locations} />
         <br />
-        <QuickSearch mealtypes={mealtypes} />
+        <QuickSearch mealtypes={mealtypes} key={mealtypes.__id} />
       </div>
     );
   }

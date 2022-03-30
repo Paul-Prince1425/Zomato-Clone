@@ -15,6 +15,7 @@ export class Wallpaper extends Component {
     this.setState({
       locId: e.target.value,
     });
+    sessionStorage.setItem("locationId", e.target.value);
   };
 
   render() {
@@ -22,23 +23,8 @@ export class Wallpaper extends Component {
 
     return (
       <div>
-        <div className="navbar bg">
-          <div className="container">
-            <div className="icon">
-              <img src="Assets/Zomato-logo1.png" alt="No image found" />
-            </div>
-            <div className="nav-btn">
-              <input className="button" type="button" value="Login" />
-              <input
-                className="create-account"
-                type="button"
-                value="Create an account"
-              />
-            </div>
-          </div>
-        </div>
         <div className="carousel_image">
-          <Carousel fade={true}>
+          <Carousel>
             <Carousel.Item>
               <img
                 className="d-block w-100 pic"
@@ -77,6 +63,7 @@ export class Wallpaper extends Component {
                   {this.props.locations.map((item) => {
                     return (
                       <option
+                        key={item._id}
                         value={item.location_id}
                       >{`${item.name}, ${item.city}`}</option>
                     );

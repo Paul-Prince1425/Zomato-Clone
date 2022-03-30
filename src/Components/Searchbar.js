@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "../Styles/Home.css";
 import axios from "axios";
+import { withRouter } from "react-router-dom";
 
 export class Searchbar extends Component {
   constructor(props) {
@@ -62,6 +63,7 @@ export class Searchbar extends Component {
       searchData: `${item.name}, ${item.city}`,
       filteredData: [],
     });
+    this.props.history.push(`/details?restaurant=${item._id}`);
   };
   clearInput = () => {
     this.setState({
@@ -92,7 +94,7 @@ export class Searchbar extends Component {
           <div className="searchResult">
             {filteredData.map((item) => {
               return (
-                <div onClick={() => this.handleClick(item)}>
+                <div key={item._id} onClick={() => this.handleClick(item)}>
                   <p>{`${item.name}, ${item.city}`}</p>
                 </div>
               );
@@ -104,4 +106,4 @@ export class Searchbar extends Component {
   }
 }
 
-export default Searchbar;
+export default withRouter(Searchbar);

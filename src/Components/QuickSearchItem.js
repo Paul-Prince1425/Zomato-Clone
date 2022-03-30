@@ -1,11 +1,25 @@
 import React, { Component } from "react";
 import "../Styles/Home.css";
+import { withRouter } from "react-router-dom";
 
 export class QuickSearchItem extends Component {
+  handleClick = () => {
+    const { mealtypesData } = this.props;
+    const locationId = sessionStorage.getItem("locationId");
+    {
+      locationId
+        ? this.props.history.push(
+            `/filter?mealtype=${mealtypesData.meal_type}&locationId=${locationId}`
+          )
+        : this.props.history.push(
+            `/filter?mealtype=${mealtypesData.meal_type}`
+          );
+    }
+  };
   render() {
     const { mealtypesData } = this.props;
     return (
-      <div className="col-lg-4 col-md-6 col-sm-12 ">
+      <div className="col-lg-4 col-md-6 col-sm-12 " onClick={this.handleClick}>
         <div className="item">
           <div className="row">
             <div className="col-6">
@@ -29,4 +43,4 @@ export class QuickSearchItem extends Component {
   }
 }
 
-export default QuickSearchItem;
+export default withRouter(QuickSearchItem);

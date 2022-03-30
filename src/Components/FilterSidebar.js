@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../Styles/Filter.css";
+import axios from "axios";
 
 export class FilterSidebar extends Component {
   constructor() {
@@ -8,6 +9,7 @@ export class FilterSidebar extends Component {
     this.state = {
       width: 0,
       isExpanded: true,
+      locations: [],
     };
   }
 
@@ -19,13 +21,25 @@ export class FilterSidebar extends Component {
   };
   componentDidMount() {
     window.addEventListener("resize", this.updateDimensions);
+
+    axios({
+      method: "GET",
+      url: "http://localhost:2000/locations",
+      headers: { "Content-Type": "Application/json" },
+    })
+      .then((response) => {
+        this.setState({
+          locations: response.data.Locations,
+        });
+      })
+      .catch((err) => console.log(err));
   }
   componentWillUnmount() {
     window.removeEventListener("resize", this.updateDimensions);
   }
 
   render() {
-    console.log(this.state);
+    const { locations } = this.state;
     return (
       <div className="col-lg-3 col-md-4 col-sm-12">
         <div className="wrapper">
@@ -49,22 +63,18 @@ export class FilterSidebar extends Component {
             <div className="left-block">
               <div className="sub-heading">Select Location</div>
               <select className="select">
-                <option>Select Location</option>
-                <option style={{ fontweight: "bold", color: "lightslategrey" }}>
-                  Chennai
-                </option>
-                <option style={{ fontweight: "bold", color: "lightslategrey" }}>
-                  Mumbai
-                </option>
-                <option style={{ fontweight: "bold", color: "lightslategrey" }}>
-                  Delhi
-                </option>
-                <option style={{ fontweight: "bold", color: "lightslategrey" }}>
-                  Kolkotta
-                </option>
-                <option style={{ fontweight: "bold", color: "lightslategrey" }}>
-                  Bengaluru
-                </option>
+                <option value={0}>Select Location</option>
+                {locations.map((item) => {
+                  return (
+                    <option
+                      key={item._id}
+                      value={item.location_id}
+                      style={{ fontweight: "bold", color: "lightslategrey" }}
+                    >
+                      {item.name}
+                    </option>
+                  );
+                })}
               </select>
               <div className="sub-heading" style={{ marginTop: "15px" }}>
                 Cuisine
