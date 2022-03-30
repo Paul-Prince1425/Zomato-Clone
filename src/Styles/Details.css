@@ -276,6 +276,8 @@
     height: 20px;
     width: 60px;
   }
+}
+@media only screen and (max-width: 400px) {
   .fa-times-circle {
     right: 50%;
   }
