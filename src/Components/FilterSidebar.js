@@ -24,7 +24,7 @@ export class FilterSidebar extends Component {
 
     axios({
       method: "GET",
-      url: "http://localhost:2000/locations",
+      url: "https://guarded-dusk-22777.herokuapp.com/locations",
       headers: { "Content-Type": "Application/json" },
     })
       .then((response) => {

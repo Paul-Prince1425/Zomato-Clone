@@ -45,7 +45,7 @@ export class Filter extends Component {
     });
     axios({
       method: "POST",
-      url: "http://localhost:2000/filter",
+      url: "https://guarded-dusk-22777.herokuapp.com/filter",
       headers: { "Content-Type": "Application/json" },
       data: filterObj,
     })
@@ -62,7 +62,7 @@ export class Filter extends Component {
 
     axios({
       method: "GET",
-      url: "http://localhost:2000/locations",
+      url: "https://guarded-dusk-22777.herokuapp.com/locations",
       headers: { "Content-Type": "Application/json" },
     })
       .then((response) => {
@@ -104,7 +104,7 @@ export class Filter extends Component {
         });
     axios({
       method: "POST",
-      url: "http://localhost:2000/filter",
+      url: "https://guarded-dusk-22777.herokuapp.com/filter",
       headers: { "Content-Type": "Application/json" },
       data: filterObj,
     })
@@ -148,7 +148,7 @@ export class Filter extends Component {
 
     axios({
       method: "POST",
-      url: "http://localhost:2000/filter",
+      url: "https://guarded-dusk-22777.herokuapp.com/filter",
       headers: { "Content-Type": "Application/json" },
       data: filterObj,
     })
@@ -191,7 +191,7 @@ export class Filter extends Component {
 
     axios({
       method: "POST",
-      url: "http://localhost:2000/filter",
+      url: "https://guarded-dusk-22777.herokuapp.com/filter",
       headers: { "Content-Type": "Application/json" },
       data: filterObj,
     })
@@ -238,7 +238,7 @@ export class Filter extends Component {
         });
     axios({
       method: "POST",
-      url: "http://localhost:2000/filter",
+      url: "https://guarded-dusk-22777.herokuapp.com/filter",
       headers: { "Content-Type": "Application/json" },
       data: filterObj,
     })
@@ -281,7 +281,7 @@ export class Filter extends Component {
 
     axios({
       method: "POST",
-      url: "http://localhost:2000/filter",
+      url: "https://guarded-dusk-22777.herokuapp.com/filter",
       headers: { "Content-Type": "Application/json" },
       data: filterObj,
     })
@@ -312,7 +312,7 @@ export class Filter extends Component {
     };
     axios({
       method: "GET",
-      url: "http://localhost:2000/locations",
+      url: "https://guarded-dusk-22777.herokuapp.com/locations",
       headers: { "Content-Type": "Application/json" },
     })
       .then((response) => {
@@ -324,7 +324,7 @@ export class Filter extends Component {
       .catch((err) => console.log(err));
     axios({
       method: "POST",
-      url: "http://localhost:2000/filter",
+      url: "https://guarded-dusk-22777.herokuapp.com/filter",
       headers: { "Content-Type": "Application/json" },
       data: filterObj,
     })

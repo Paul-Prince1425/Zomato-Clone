@@ -32,7 +32,7 @@ export class Details extends Component {
     Modal.setAppElement(".details");
     axios({
       method: "GET",
-      url: `http://localhost:2000/restaurant/${restaurant}`,
+      url: `https://guarded-dusk-22777.herokuapp.com/restaurant/${restaurant}`,
       headers: { "Content-Type": "Application/json" },
     })
       .then((response) => {
@@ -52,7 +52,7 @@ export class Details extends Component {
 
     axios({
       method: "GET",
-      url: `http://localhost:2000/menuItems/${restaurant._id}`,
+      url: `https://guarded-dusk-22777.herokuapp.com/menuItems/${restaurant._id}`,
       headers: { "Content-Type": "Application/json" },
     })
       .then((response) => {
@@ -143,7 +143,7 @@ export class Details extends Component {
   };
 
   getData = (data) => {
-    return fetch(`http://localhost:2000/payment`, {
+    return fetch(`https://guarded-dusk-22777.herokuapp.com/payment`, {
       method: "POST",
       headers: {
         Accept: "application/json",

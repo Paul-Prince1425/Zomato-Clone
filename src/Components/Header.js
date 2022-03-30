@@ -72,7 +72,7 @@ export class Header extends Component {
 
       axios({
         method: "POST",
-        url: "http://localhost:2000/usersignup",
+        url: "https://guarded-dusk-22777.herokuapp.com/usersignup",
         headers: { "Content-Type": "Application/json" },
         data: userObj,
       })
@@ -106,7 +106,7 @@ export class Header extends Component {
 
       axios({
         method: "POST",
-        url: "http://localhost:2000/userlogin",
+        url: "https://guarded-dusk-22777.herokuapp.com/userlogin",
         headers: { "Content-Type": "Application/json" },
         data: userObj,
       })
@@ -282,7 +282,12 @@ export class Header extends Component {
               <button
                 type="submit"
                 className="pay"
-                style={{ float: "left", marginRight: "20px", height: "44px" }}
+                style={{
+                  float: "left",
+                  marginRight: "20px",
+                  height: "44px",
+                  marginBottom: "20px",
+                }}
                 onClick={(event) => this.signUp(event)}
               >
                 Sign Up
@@ -348,7 +353,12 @@ export class Header extends Component {
               <button
                 type="submit"
                 className="pay"
-                style={{ float: "left", marginRight: "20px", height: "44px" }}
+                style={{
+                  float: "left",
+                  marginRight: "20px",
+                  height: "44px",
+                  marginBottom: "20px",
+                }}
                 onClick={(event) => this.signIn(event)}
               >
                 Sign In

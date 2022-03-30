@@ -17,7 +17,7 @@ export class Home extends Component {
     sessionStorage.clear();
     axios({
       method: "GET",
-      url: "http://localhost:2000/locations",
+      url: "https://guarded-dusk-22777.herokuapp.com/locations",
       headers: { "Content-Type": "Application/json" },
     })
       .then((response) => {
@@ -29,7 +29,7 @@ export class Home extends Component {
 
     axios({
       method: "GET",
-      url: "http://localhost:2000/mealtypes",
+      url: "https://guarded-dusk-22777.herokuapp.com/mealtypes",
       headers: { "Content-Type": "Application/json" },
     })
       .then((response) => {

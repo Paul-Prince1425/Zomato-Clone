@@ -17,7 +17,7 @@ export class Searchbar extends Component {
   fetchData(locId) {
     axios({
       method: "GET",
-      url: `http://localhost:2000/restaurants/${locId}`,
+      url: `https://guarded-dusk-22777.herokuapp.com/restaurants/${locId}`,
       headers: { "Content-Type": "Application/json" },
     })
       .then((response) => {
