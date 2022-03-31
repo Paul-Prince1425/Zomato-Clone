@@ -227,7 +227,6 @@ li {
   border: 1px solid black;
   text-transform: uppercase;
   overflow: hidden;
-
   background: #ff523b;
   outline-width: 0px;
 }
@@ -436,5 +435,22 @@ li {
   .icon > img {
     height: 30px;
     width: 60px;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .left-block {
+    position: relative;
+  }
+  .clearFilter {
+    position: absolute;
+    top: 0%;
+
+    width: 55%;
+  }
+  .sub-heading {
+    margin-top: 32px;
+  }
+  .wrapper {
+    height: 658px;
   }
 }

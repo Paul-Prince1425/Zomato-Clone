@@ -6,6 +6,7 @@ import axios from "axios";
 import Rating from "./Rating";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
+import Loader from "./Loader";
 
 export class Details extends Component {
   constructor() {
@@ -23,6 +24,7 @@ export class Details extends Component {
       email: undefined,
       contactNumber: undefined,
       address: undefined,
+      loader: false,
     };
   }
 
@@ -30,6 +32,7 @@ export class Details extends Component {
     const qs = querystring.parse(this.props.location.search);
     const { restaurant } = qs;
     Modal.setAppElement(".details");
+    this.setState({ loader: true });
     axios({
       method: "GET",
       url: `https://guarded-dusk-22777.herokuapp.com/restaurant/${restaurant}`,
@@ -38,6 +41,7 @@ export class Details extends Component {
       .then((response) => {
         this.setState({
           restaurant: response.data.Restaurant,
+          loader: false,
         });
       })
       .catch((err) => console.log(err));
@@ -49,7 +53,7 @@ export class Details extends Component {
   };
   getMenuItems = () => {
     const { restaurant } = this.state;
-
+    this.setState({ loader: true });
     axios({
       method: "GET",
       url: `https://guarded-dusk-22777.herokuapp.com/menuItems/${restaurant._id}`,
@@ -58,6 +62,7 @@ export class Details extends Component {
       .then((response) => {
         this.setState({
           menuItems: response.data.MenuItems,
+          loader: false,
         });
       })
       .catch((err) => console.log(err));
@@ -206,6 +211,7 @@ export class Details extends Component {
       imageModalIsOpen,
       menuItems,
       subtotal,
+      loader,
     } = this.state;
 
     return (
@@ -221,86 +227,90 @@ export class Details extends Component {
           </div>
         </div>
 
-        <div className="details__infoContainer">
-          <div className="details__info">
-            <div className="details__infoLeft">
-              <h1>{name}</h1>
-              <br />
-              <div className="details__infoLeftTabs">
-                <div
-                  className={
-                    this.state.tab !== 1 ? "overview" : "overview shadow"
-                  }
-                >
-                  <span onClick={() => this.viewTab(1)}>Overview</span>
-                </div>
-                <div
-                  className={
-                    this.state.tab !== 2 ? "overview" : "overview shadow"
-                  }
-                >
-                  <span className="contact" onClick={() => this.viewTab(2)}>
-                    Contact
-                  </span>
-                </div>
-                <div className="details__infoRight">
-                  <button
-                    onClick={() => {
-                      this.handleCartModel("modalIsOpen", true);
-                      this.getMenuItems();
-                    }}
+        {loader ? (
+          <Loader />
+        ) : (
+          <div className="details__infoContainer">
+            <div className="details__info">
+              <div className="details__infoLeft">
+                <h1>{name}</h1>
+                <br />
+                <div className="details__infoLeftTabs">
+                  <div
+                    className={
+                      this.state.tab !== 1 ? "overview" : "overview shadow"
+                    }
                   >
-                    Place Order
-                  </button>
+                    <span onClick={() => this.viewTab(1)}>Overview</span>
+                  </div>
+                  <div
+                    className={
+                      this.state.tab !== 2 ? "overview" : "overview shadow"
+                    }
+                  >
+                    <span className="contact" onClick={() => this.viewTab(2)}>
+                      Contact
+                    </span>
+                  </div>
+                  <div className="details__infoRight">
+                    <button
+                      onClick={() => {
+                        this.handleCartModel("modalIsOpen", true);
+                        this.getMenuItems();
+                      }}
+                    >
+                      Place Order
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <hr />
-          <div
-            className="details__infoContent"
-            hidden={true && this.state.tab !== 1}
-          >
-            <h4>About</h4>
-            <div className="details__infoCuisine">
-              <span>Cuisine : </span>
+            <hr />
+            <div
+              className="details__infoContent"
+              hidden={true && this.state.tab !== 1}
+            >
+              <h4>About</h4>
+              <div className="details__infoCuisine">
+                <span>Cuisine : </span>
 
-              {cuisine?.map((item, i) => {
-                return <small key={i}>{`${item.name}, `}</small>;
-              })}
-            </div>
-
-            <div className="details__infoRating">
-              <div style={{ marginRight: "10px" }}>
-                <span>Rating : </span>
-                <small className="rating-aggregate">{`(${aggregate_rating})`}</small>
-                <small className="rating-text">{`- ${rating_text}`}</small>
+                {cuisine?.map((item, i) => {
+                  return <small key={i}>{`${item.name}, `}</small>;
+                })}
               </div>
-              <Rating rating={aggregate_rating} />
-            </div>
 
-            <div className="details__infoCost">
-              <span>Average Cost : </span>
-              <small>&#8377; {min_price} for two people (Approx)</small>
+              <div className="details__infoRating">
+                <div style={{ marginRight: "10px" }}>
+                  <span>Rating : </span>
+                  <small className="rating-aggregate">{`(${aggregate_rating})`}</small>
+                  <small className="rating-text">{`- ${rating_text}`}</small>
+                </div>
+                <Rating rating={aggregate_rating} />
+              </div>
+
+              <div className="details__infoCost">
+                <span>Average Cost : </span>
+                <small>&#8377; {min_price} for two people (Approx)</small>
+              </div>
+            </div>
+            <div
+              className="details__infoContent"
+              hidden={true && this.state.tab !== 2}
+            >
+              <div>
+                <span>Address : </span>
+                <br />
+                <small>{`${locality}, ${city}`}</small>
+              </div>
+              <br />
+              <div>
+                <span>Contact Number : </span>
+                <br />
+                <small>{contact_number}</small>
+              </div>
             </div>
           </div>
-          <div
-            className="details__infoContent"
-            hidden={true && this.state.tab !== 2}
-          >
-            <div>
-              <span>Address : </span>
-              <br />
-              <small>{`${locality}, ${city}`}</small>
-            </div>
-            <br />
-            <div>
-              <span>Contact Number : </span>
-              <br />
-              <small>{contact_number}</small>
-            </div>
-          </div>
-        </div>
+        )}
         <div>
           <Modal isOpen={modalIsOpen} style={customStyles}>
             <div className="closebutton">
@@ -373,7 +383,7 @@ export class Details extends Component {
                             className="add"
                             onClick={() => this.addItems(index, "increase")}
                           >
-                            Add
+                            ADD
                           </button>
                         )}
                       </div>
@@ -433,21 +443,23 @@ export class Details extends Component {
                 <small id="emailHelp" className="form-text text-muted"></small>
               </div>
               <br />
-              <button
-                type="submit"
-                className="pay"
-                style={{ float: "left" }}
-                onClick={(event) => this.handlePayment(event)}
-              >
-                Checkout
-              </button>
-              <button
-                type="submit"
-                className="pay"
-                onClick={() => this.handleFormModel("formModalIsOpen", false)}
-              >
-                close
-              </button>
+              <div className="button-flex">
+                <button
+                  type="submit"
+                  className="pay"
+                  style={{ marginRight: "5px" }}
+                  onClick={(event) => this.handlePayment(event)}
+                >
+                  Checkout
+                </button>
+                <button
+                  type="submit"
+                  className="pay"
+                  onClick={() => this.handleFormModel("formModalIsOpen", false)}
+                >
+                  close
+                </button>
+              </div>
             </form>
           </Modal>
           <Modal isOpen={imageModalIsOpen} style={customStyles}>

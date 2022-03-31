@@ -3,6 +3,7 @@ import "../Styles/Home.css";
 import QuickSearch from "./QuickSearch";
 import Wallpaper from "./Wallpaper";
 import axios from "axios";
+import Loader from "./Loader";
 
 export class Home extends Component {
   constructor() {
@@ -11,10 +12,12 @@ export class Home extends Component {
     this.state = {
       locations: [],
       mealtypes: [],
+      loader: false,
     };
   }
   componentDidMount() {
     sessionStorage.clear();
+    this.setState({ loader: true });
     axios({
       method: "GET",
       url: "https://guarded-dusk-22777.herokuapp.com/locations",
@@ -35,18 +38,23 @@ export class Home extends Component {
       .then((response) => {
         this.setState({
           mealtypes: response.data.MealTypes,
+          loader: false,
         });
       })
       .catch((err) => console.log(err));
   }
 
   render() {
-    const { locations, mealtypes } = this.state;
+    const { locations, mealtypes, loader } = this.state;
     return (
       <div>
         <Wallpaper locations={locations} />
         <br />
-        <QuickSearch mealtypes={mealtypes} key={mealtypes.__id} />
+        {loader ? (
+          <Loader />
+        ) : (
+          <QuickSearch mealtypes={mealtypes} key={mealtypes.__id} />
+        )}
       </div>
     );
   }

@@ -244,8 +244,14 @@
   position: absolute;
   cursor: pointer;
 }
-
-@media only screen and (max-width: 400px) {
+.button-flex {
+  display: flex;
+  justify-content: space-between;
+}
+.button-flex:first-child {
+  margin-right: 5px;
+}
+@media only screen and (max-width: 600px) {
   .details > img {
     height: 350px;
   }
@@ -272,13 +278,17 @@
     font-size: 12px;
   }
   .menuItems__details button {
-    font-size: 10px;
-    height: 20px;
-    width: 60px;
   }
-}
-@media only screen and (max-width: 500px) {
   .fa-times-circle {
     right: 50%;
+  }
+  .qty-adjust {
+    padding: 2px;
+    font-size: 10px;
+    height: 20px;
+    width: 28px;
+  }
+  .button-flex:first-child {
+    margin-right: 5px;
   }
 }

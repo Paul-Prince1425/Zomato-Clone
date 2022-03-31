@@ -4,6 +4,7 @@ import FilterContent from "./FilterContent";
 import FilterHeader from "./FilterHeader";
 import querystring from "query-string";
 import axios from "axios";
+import Loader from "./Loader";
 
 export class Filter extends Component {
   constructor() {
@@ -24,6 +25,7 @@ export class Filter extends Component {
       totalPage: undefined,
       page: undefined,
       totalRestaurants: undefined,
+      loader: false,
     };
   }
   updateDimensions = () => {
@@ -34,6 +36,7 @@ export class Filter extends Component {
   };
 
   componentDidMount() {
+    console.log("re-rendered");
     const qs = querystring.parse(this.props.location.search);
     const { mealtype, locationId } = qs;
     const filterObj = {
@@ -42,6 +45,7 @@ export class Filter extends Component {
     };
     this.setState({
       location: locationId,
+      loader: true,
     });
     axios({
       method: "POST",
@@ -55,6 +59,7 @@ export class Filter extends Component {
           totalPage: response.data.TotalPage,
           totalRestaurants: response.data.TotalRestaurants,
           mealtype,
+          loader: false,
         });
       })
       .catch((err) => console.log(err));
@@ -68,6 +73,7 @@ export class Filter extends Component {
       .then((response) => {
         this.setState({
           locations: response.data.Locations,
+          loader: false,
         });
       })
       .catch((err) => console.log(err));
@@ -81,6 +87,7 @@ export class Filter extends Component {
     this.setState({
       location,
       isSelected: e.target.value,
+      loader: true,
     });
     this.state.cuisine.length === 0
       ? (filterObj = {
@@ -113,6 +120,7 @@ export class Filter extends Component {
           restaurants: response.data.PaginationResponse,
           totalPage: response.data.TotalPage,
           totalRestaurants: response.data.TotalRestaurants,
+          loader: false,
         });
         this.props.history.replace(
           `/filter?mealtype=${this.state.mealtype}&locationId=${this.state.location}`
@@ -124,6 +132,7 @@ export class Filter extends Component {
     let filterObj = {};
     this.setState({
       sort,
+      loader: true,
     });
     this.state.cuisine.length === 0
       ? (filterObj = {
@@ -157,6 +166,7 @@ export class Filter extends Component {
           restaurants: response.data.PaginationResponse,
           totalPage: response.data.TotalPage,
           totalRestaurants: response.data.TotalRestaurants,
+          loader: false,
         });
       })
       .catch((err) => console.log(err));
@@ -167,6 +177,7 @@ export class Filter extends Component {
     this.setState({
       lcost,
       hcost,
+      loader: true,
     });
     this.state.cuisine.length === 0
       ? (filterObj = {
@@ -200,6 +211,7 @@ export class Filter extends Component {
           restaurants: response.data.PaginationResponse,
           totalPage: response.data.TotalPage,
           totalRestaurants: response.data.TotalRestaurants,
+          loader: false,
         });
       })
       .catch((err) => console.log(err));
@@ -211,9 +223,11 @@ export class Filter extends Component {
     (await e.target.checked)
       ? this.setState({
           cuisine: [...this.state.cuisine, arr],
+          loader: true,
         })
       : this.setState({
           cuisine: [...this.state.cuisine.filter((item) => item !== arr)],
+          loader: true,
         });
 
     this.state.cuisine.length === 0
@@ -247,6 +261,7 @@ export class Filter extends Component {
           restaurants: response.data.PaginationResponse,
           totalPage: response.data.TotalPage,
           totalRestaurants: response.data.TotalRestaurants,
+          loader: false,
         });
       })
       .catch((err) => console.log(err));
@@ -257,6 +272,7 @@ export class Filter extends Component {
     let filterObj = {};
     this.setState({
       page,
+      loader: true,
     });
     this.state.cuisine.length === 0
       ? (filterObj = {
@@ -290,6 +306,7 @@ export class Filter extends Component {
           restaurants: response.data.PaginationResponse,
           totalPage: response.data.TotalPage,
           totalRestaurants: response.data.TotalRestaurants,
+          loader: false,
         });
       })
       .catch((err) => console.log(err));
@@ -305,6 +322,7 @@ export class Filter extends Component {
       cuisine: [],
       isSelected: "",
       page: undefined,
+      loader: true,
     });
 
     const filterObj = {
@@ -333,6 +351,7 @@ export class Filter extends Component {
           restaurants: response.data.PaginationResponse,
           totalPage: response.data.TotalPage,
           totalRestaurants: response.data.TotalRestaurants,
+          loader: false,
         });
       })
       .catch((err) => console.log(err));
@@ -357,6 +376,7 @@ export class Filter extends Component {
       totalPage,
       isExpanded,
       totalRestaurants,
+      loader,
     } = this.state;
     return (
       <div>
@@ -587,42 +607,50 @@ export class Filter extends Component {
                 </div>
               </div>
             </div>
-            <div className="col-lg-9 col-md-8 col-sm-12">
-              {restaurants.length === 0 ? (
-                <h4 className="no-options">No options available</h4>
-              ) : (
-                <div className="right-block">
-                  {restaurants.map((item) => {
-                    return <FilterContent key={item._id} restaurants={item} />;
-                  })}
-                </div>
-              )}
-              {totalPage > 1 && (
-                <div className="Footer">
-                  <div className="footer-flex">
-                    <input
-                      type="button"
-                      value="<"
-                      style={{ display: totalPage < 6 && "none" }}
-                      onClick={this.slideLeft}
-                    />
-                    <div className="page" onClick={this.handleClickPage}>
-                      {Array(totalPage)
-                        .fill()
-                        .map((_, i) => {
-                          return <input key={i} type="button" value={i + 1} />;
-                        })}
-                    </div>
-                    <input
-                      type="button"
-                      value=">"
-                      style={{ display: totalPage < 6 && "none" }}
-                      onClick={this.slideRight}
-                    />
+            {loader ? (
+              <Loader />
+            ) : (
+              <div className="col-lg-9 col-md-8 col-sm-12">
+                {restaurants.length === 0 ? (
+                  <h4 className="no-options">No options available</h4>
+                ) : (
+                  <div className="right-block">
+                    {restaurants.map((item) => {
+                      return (
+                        <FilterContent key={item._id} restaurants={item} />
+                      );
+                    })}
                   </div>
-                </div>
-              )}
-            </div>
+                )}
+                {totalPage > 1 && (
+                  <div className="Footer">
+                    <div className="footer-flex">
+                      <input
+                        type="button"
+                        value="<"
+                        style={{ display: totalPage < 6 && "none" }}
+                        onClick={this.slideLeft}
+                      />
+                      <div className="page" onClick={this.handleClickPage}>
+                        {Array(totalPage)
+                          .fill()
+                          .map((_, i) => {
+                            return (
+                              <input key={i} type="button" value={i + 1} />
+                            );
+                          })}
+                      </div>
+                      <input
+                        type="button"
+                        value=">"
+                        style={{ display: totalPage < 6 && "none" }}
+                        onClick={this.slideRight}
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>
