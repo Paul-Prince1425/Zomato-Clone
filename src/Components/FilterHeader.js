@@ -14,7 +14,7 @@ export class FilterHeader extends Component {
         <br />
         <div className="container">
           <div className="heading">
-            <h1>{`${mealtype} options`}</h1>
+            <h1>{mealtype && `${mealtype} options`}</h1>
             {totalRestaurants !== 0 && (
               <span>
                 {totalPage === 1

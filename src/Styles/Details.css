@@ -286,9 +286,14 @@
     padding: 2px;
     font-size: 10px;
     height: 20px;
-    width: 28px;
+    width: 24px;
   }
   .button-flex:first-child {
     margin-right: 5px;
+  }
+  .pay {
+    width: 114px;
+    text-align: center;
+    padding: 1px 10px;
   }
 }
