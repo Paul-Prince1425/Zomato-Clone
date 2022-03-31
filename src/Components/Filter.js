@@ -72,7 +72,6 @@ export class Filter extends Component {
       .then((response) => {
         this.setState({
           locations: response.data.Locations,
-          loader: false,
         });
       })
       .catch((err) => console.log(err));
