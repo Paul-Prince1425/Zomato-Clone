@@ -339,7 +339,7 @@ export class Details extends Component {
                         <img src={item.image} alt="" />
                       </div>
                       <div className="menuItems__info">
-                        <span>{menuItems.name}</span>
+                        <span>{item.name}</span>
                         <p>{item.description}</p>
                       </div>
                     </div>
