@@ -367,9 +367,6 @@ li {
     font-size: 10px;
   }
 
-  .container h1 {
-    font-size: 14px;
-  }
   .heading > span {
     font-size: 9px;
   }
@@ -437,7 +434,7 @@ li {
     width: 60px;
   }
 }
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 500px) {
   .left-block {
     position: relative;
   }
@@ -452,5 +449,8 @@ li {
   }
   .wrapper {
     height: 658px;
+  }
+  .container h1 {
+    font-size: 14px;
   }
 }
