@@ -45,9 +45,6 @@ export class FilterContent extends Component {
               <li className="price">&#8377;&nbsp;{restaurants.min_price}</li>
             </ul>
           </div>
-          <div className="book">
-            <input type="button" value="View" />
-          </div>
         </div>
       </div>
     );
