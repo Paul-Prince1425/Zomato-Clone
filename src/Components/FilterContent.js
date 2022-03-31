@@ -14,7 +14,7 @@ export class FilterContent extends Component {
       <div className="content1" onClick={this.handleClick}>
         <div className="flex">
           <div className="content-img">
-            <img src="Assets/breakfast.jpg" />
+            <img src={restaurants.image} alt="" />
           </div>
           <div className="hotel-details">
             <h3>{restaurants.name}</h3>

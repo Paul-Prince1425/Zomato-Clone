@@ -8,12 +8,13 @@ export class FilterHeader extends Component {
   };
   render() {
     const { totalPage, totalRestaurants } = this.props;
+    const mealtype = sessionStorage.getItem("mealtype");
     return (
       <div>
         <br />
         <div className="container">
           <div className="heading">
-            <h1>Restaurants</h1>
+            <h1>{`${mealtype} options`}</h1>
             {totalRestaurants !== 0 && (
               <span>
                 {totalPage === 1

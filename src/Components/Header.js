@@ -93,7 +93,7 @@ export class Header extends Component {
     }
   };
   signIn = (e) => {
-    const { username, password, isAuthenticated, user } = this.state;
+    const { username, password } = this.state;
     e.preventDefault();
 
     if (!username || !password) {
@@ -173,7 +173,7 @@ export class Header extends Component {
             <div className="icon">
               <img
                 src="Assets/Zomato-logo1.png"
-                alt="No image found"
+                alt=""
                 onClick={this.handleClick}
               />
             </div>
@@ -181,8 +181,8 @@ export class Header extends Component {
               {isAuthenticated ? (
                 <span style={{ color: "white", marginRight: "10px" }}>
                   {!loginData
-                    ? `Welcome ${user.givenName || user.firstname}`
-                    : `Welcome ${loginData.givenName || loginData.firstname}`}
+                    ? `Welcome ${user.givenName || user.firstname}!`
+                    : `Welcome ${loginData.givenName || loginData.firstname}!`}
                 </span>
               ) : (
                 <input

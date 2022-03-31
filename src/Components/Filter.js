@@ -36,7 +36,6 @@ export class Filter extends Component {
   };
 
   componentDidMount() {
-    console.log("re-rendered");
     const qs = querystring.parse(this.props.location.search);
     const { mealtype, locationId } = qs;
     const filterObj = {

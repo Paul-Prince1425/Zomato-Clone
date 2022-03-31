@@ -79,15 +79,11 @@ export class Details extends Component {
     const items = [...this.state.menuItems];
     const item = items[index];
 
-    {
-      operationType == "increase" ? item.qty++ : item.qty--;
-    }
+    operationType === "increase" ? item.qty++ : item.qty--;
 
     items[index] = item;
 
-    items.map((item) => {
-      total += item.qty * item.price;
-    });
+    items.map((item) => (total += item.qty * item.price));
     this.setState({
       menuItems: items,
       subtotal: total,
@@ -335,7 +331,7 @@ export class Details extends Component {
                 )}
                 <h5>Menu Items</h5>
               </div>
-              {menuItems.map((item, index) => {
+              {menuItems?.map((item, index) => {
                 return (
                   <div key={item._id} className="menuItems">
                     <div className="menuItems-top">
@@ -472,7 +468,7 @@ export class Details extends Component {
               {thumb?.map((item, i) => {
                 return (
                   <div key={i}>
-                    <img src={`/${item}`} />
+                    <img src={`/${item}`} alt="" />
                   </div>
                 );
               })}

@@ -6,6 +6,8 @@ export class QuickSearchItem extends Component {
   handleClick = () => {
     const { mealtypesData } = this.props;
     const locationId = sessionStorage.getItem("locationId");
+    sessionStorage.setItem("mealtype", mealtypesData.name);
+
     {
       locationId
         ? this.props.history.push(
