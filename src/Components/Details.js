@@ -468,7 +468,7 @@ export class Details extends Component {
               {thumb?.map((item, i) => {
                 return (
                   <div key={i}>
-                    <img src={`/${item}`} alt="" />
+                    <img src={item} alt="" />
                   </div>
                 );
               })}
