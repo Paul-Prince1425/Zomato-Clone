@@ -318,7 +318,7 @@ export class Details extends Component {
             </div>
             <div className="modalContent">
               <div className="cart-heading">
-                <span>Subtotal : {subtotal}</span>
+                <span>Subtotal : &#8377;{subtotal}</span>
                 {subtotal > 0 && (
                   <span
                     className="pay"
@@ -357,7 +357,7 @@ export class Details extends Component {
                         }}
                       >
                         <small>Qty : {item.qty}</small>
-                        <small>Price : {item.price}</small>
+                        <small>Price : &#8377;{item.price}</small>
                         {item.qty > 0 ? (
                           <div>
                             <button
