@@ -42,7 +42,6 @@ export class Header extends Component {
   };
   logOut = (state, value) => {
     localStorage.removeItem("loginData");
-
     this.setState({
       [state]: value,
       loginData: null,
