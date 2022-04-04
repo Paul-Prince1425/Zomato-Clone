@@ -196,7 +196,10 @@ export class Header extends Component {
                   className="create-account"
                   type="button"
                   value="Log Out"
-                  onClick={() => this.logOut("isAuthenticated", false)}
+                  onClick={() => {
+                    this.logOut("isAuthenticated", false);
+                    this.handleClick();
+                  }}
                 />
               ) : (
                 <input
